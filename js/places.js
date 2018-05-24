@@ -1,0 +1,2 @@
+var nhood_places = {
+} 
