@@ -2,6 +2,15 @@ html, body {
     height: 100%;
 }
 
+.containter {
+	height: 100%;
+}
+
+.row {
+	height: 100%;
+}
+
 #map {
     height: 100%;
+	width: 100%;
 }
