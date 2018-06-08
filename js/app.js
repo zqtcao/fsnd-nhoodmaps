@@ -48,11 +48,10 @@ function initMap() {
 		// Check to make sure the infowindow is not already opened on this marker.
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
-		
 			$.getJSON(fsPlaceUrl, function(marker) {
 				var fsVenues = marker.response.venues[0];
 				var locName = fsVenues.name;
-				infowindow.setContent('<div>' + locName + '</div>');
+				infowindow.setContent('<div>' + locName + '<br><img src="img/Powered-by-Foursquare-full-color-300.png"></div>');
 			}).fail(function(e){
 				infowindow.setContent('<div>' + fsErr + '</div>');
 			});
