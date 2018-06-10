@@ -12,6 +12,9 @@
 <body>
 	<div class="container-fluid">
 		<div class="col-lg-2">
+			<ul data-bind="foreach: mapLocList">
+				<li data-bind="text: name"></li>
+			</ul>
 		</div>
 		<div class="col-lg-10">
 			<div id="map">
@@ -19,11 +22,12 @@
 		</div>
 	</div>
 	<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+	<script src="js/knockout-3.5.0rc.js" type="text/javascript"></script>
 	<script src="js/res.js"></script>
 	<script src="js/places.js"></script>
 	<script src="js/app.js"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqdPccnMjgPWB-H8erUNR_Ns5RMh_P-qQ&v=3&callback=initMap" 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqdPccnMjgPWB-H8erUNR_Ns5RMh_P-qQ&v=3&callback=runApp" 
 		onerror="mapAPIError()">
     </script>
 </body>
