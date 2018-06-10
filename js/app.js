@@ -41,17 +41,23 @@ function initMap() {
 		
 		var fsPlaceUrl = "https://api.foursquare.com/v2/venues/search?ll=" 
 			+ marker.lat + "," + marker.lng
+			+ "&query=" + marker.title
 			+ "&client_id=" + fsClientID
 			+ "&client_secret=" + fsClientSecret
-			+ "&v=20180602";
+			+ "&limit=1&v=20180609";
 		console.log(fsPlaceUrl);
 		// Check to make sure the infowindow is not already opened on this marker.
 		if (infowindow.marker != marker) {
 			infowindow.marker = marker;
 			$.getJSON(fsPlaceUrl, function(marker) {
-				var fsVenues = marker.response.venues[0];
-				var locName = fsVenues.name;
-				infowindow.setContent('<div>' + locName + '<br><img src="img/Powered-by-Foursquare-full-color-300.png"></div>');
+				var venueResponse = marker.response.venues[0];
+				var locName = venueResponse.name;
+				var locAddressLine1 = venueResponse.location.formattedAddress[0];
+				var locAddressLine2 = venueResponse.location.formattedAddress[1];
+				
+				infowindow.setContent('<div><h4>' + locName + '</h4>' 
+				+ '<h5>' + locAddressLine1 + '</h5><h5>' + locAddressLine2
+				+ '</h5><br><img src="img/Powered-by-Foursquare-full-color-300.png"></div>');
 			}).fail(function(e){
 				infowindow.setContent('<div>' + fsErr + '</div>');
 			});
@@ -62,4 +68,8 @@ function initMap() {
 			});
 		}
 	}
+}
+
+function mapAPIError() {
+	$("#map").html(gmapsErr);
 }
