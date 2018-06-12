@@ -4,7 +4,7 @@ html, body {
 }
 
 h1 {
-	font-size: 44px;
+	font-size: 40px;
 	font-weight: bold;
 	font-variant: small-caps;
 	color: #0098e1;
@@ -18,7 +18,23 @@ h3 {
 	font-style: italic;
 }
 
+li {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid black;
+    box-shadow: 8px 8px;
+}
+
 #map {
     height: 1000px;
 	width: 100%;
+}
+
+.selected {
+    font-size: 28px;
+	color: #7092be;
 }

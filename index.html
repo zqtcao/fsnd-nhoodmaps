@@ -11,13 +11,36 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="col-lg-2">
-			<ul data-bind="foreach: mapLocList">
-				<li data-bind="text: name"></li>
-			</ul>
-		</div>
-		<div class="col-lg-10">
-			<div id="map">
+		<div class="row">
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>The Dim Sum Map</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form>
+                            <fieldset>
+                                <legend>Filter Options</legend>
+                                <input class="form-control" type="text" aria-label="Search" data-bind="textInput: searchFilter" placeholder="Find Location">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <nav class="navbar-default col-lg-12">
+                        <div class="collapse navbar-collapse">
+                        <ul class="nav nav-stacked" data-bind="foreach: filteredLocList">
+                            <li class="nav-item" data-bind="text: $data.name, attr: {id: $data.id}, click: $parent.toggleLocItem"></li>
+                        </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+			<div class="col-sm-10">
+				<div id="map">
+				</div>
 			</div>
 		</div>
 	</div>
