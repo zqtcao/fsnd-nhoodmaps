@@ -15,15 +15,15 @@
     <div class="container-fluid">
         <div class="row">
             <header class="col-lg-12">
-                <h1>The Dim Sum Map
-                    <button type="button" class="btn btn-info pull-right" id="locListCollapse">
-                <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </button>
+                <h1 class="col-sm-7">
+                    <button type="button" class="btn btn-info" id="locListCollapse">
+                <span class="glyphicon glyphicon-menu-hamburger "></span> 
+            </button> The 626 Dim Sum Map
                 </h1>
             </header>
         </div>
         <section class="row">
-            <nav class="col-md-3" id="locList">
+            <nav class="col-sm-3" id="locList">
                 <div>
                     <form>
                         <fieldset>
@@ -38,7 +38,7 @@
                 </ul>
             </nav>
 
-            <div class="col-md-9" id="mapArea">
+            <div class="col-sm-9" id="mapArea">
                 <div id="map">
                 </div>
             </div>
@@ -47,9 +47,8 @@
 
     <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
     <script src="js/knockout-3.5.0rc.js" type="text/javascript"></script>
-    <script src="js/res.js"></script>
-    <script src="js/places.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/res.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqdPccnMjgPWB-H8erUNR_Ns5RMh_P-qQ&v=3&callback=runApp" onerror="mapAPIError()">
 
 

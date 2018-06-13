@@ -1,11 +1,18 @@
-var map;
-
 //Class that represents a particular location
 function MapLocation(name, id, isFavorite = false) {
     var self = this;
     self.name = name;
     self.id = id;
     self.isFavorite = isFavorite;
+    self.isSelected = false;
+
+    self.toggleFavorite = function () {
+        self.isFavorite = !self.isFavorite;
+    }
+
+    self.toggleSelected = function () {
+        self.isSelected = !self.isSelected;
+    }
 }
 
 function MapsViewModel() {
@@ -14,6 +21,7 @@ function MapsViewModel() {
     self.markers = [];
     self.largeInfowindow = new google.maps.InfoWindow();
     self.searchFilter = ko.observable('');
+    //self.filteredLocList = ko.observableArray();
 
     self.populateInfoWindow = function (marker, infowindow) {
 
@@ -47,9 +55,6 @@ function MapsViewModel() {
             infowindow.addListener('closeclick', function () {
                 infowindow.setMarker = null;
             });
-        } else {
-            infowindow.setMarker = null;
-            infowindow.close();
         }
     }
 
@@ -65,14 +70,14 @@ function MapsViewModel() {
         });
 
         var bounds = new google.maps.LatLngBounds();
-        // The following group uses the location array to create an array of markers on initialize.
+        // The following group uses the places array to create an array of markers on initialize.
         for (var i = 0; i < places.length; i++) {
-            // Get the position from the location array.
+            // Get the position from the places array.
             var position = places[i].location;
             var title = places[i].title;
             var lat = position.lat;
             var lng = position.lng;
-            // Create a marker per location, and put into markers array.
+            // Create a marker per place, and put into markers array.
             var marker = new google.maps.Marker({
                 map: map,
                 position: position,
@@ -82,7 +87,7 @@ function MapsViewModel() {
                 animation: google.maps.Animation.DROP,
                 id: i
             });
-            // Push the marker to our array of markers.
+            // Push the marker to our markers array
             self.markers.push(marker);
             // Create an onclick event to open an infowindow at each marker.
             marker.addListener('click', function () {
@@ -141,6 +146,6 @@ $(document).ready(function () {
     $('#locListCollapse').on('click', function () {
         console.log("togglin sidebar!");
         $('#locList').toggleClass('hide');
-        $('#mapArea').toggleClass('col-md-12 col-md-9');
+        $('#mapArea').toggleClass('col-xs-12 col-xs-9');
     });
 });

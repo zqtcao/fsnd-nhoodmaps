@@ -5,7 +5,7 @@ body {
 }
 
 h1 {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: bold;
     font-variant: small-caps;
     color: #0098e1;
@@ -21,15 +21,32 @@ h3 {
     font-style: italic;
 }
 
+h4 {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-family: 'Century Gothic', sans-serif;
+}
+
+h5 {
+    font-style: italic;
+    font-family: 'Century Gothic', sans-serif;
+}
+
 li {
-    font-size: 20px;
+    font-size: 18px;
+    font-variant: small-caps;
+    color: #0098e1;
     margin-top: 10px;
     margin-bottom: 10px;
     padding-left: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
-    border: 1px solid black;
-    box-shadow: 4px 4px;
+    box-shadow: 4px 4px #0098e1;
+}
+
+.selected {
+    font-weight: bold;
+    box-shadow: 4px 4px #1f2576;
 }
 
 #map {
