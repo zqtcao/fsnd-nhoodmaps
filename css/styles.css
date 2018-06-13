@@ -1,21 +1,24 @@
-html, body {
+html,
+body {
     height: 100%;
-	font-family: 'Century Gothic', sans-serif;
+    font-family: 'Century Gothic', sans-serif;
 }
 
 h1 {
-	font-size: 40px;
-	font-weight: bold;
-	font-variant: small-caps;
-	color: #0098e1;
+    font-size: 40px;
+    font-weight: bold;
+    font-variant: small-caps;
+    color: #0098e1;
 }
+
 h2 {
-	font-size: 28px;
-	color: #7092be;
+    font-size: 28px;
+    color: #7092be;
 }
+
 h3 {
-	font-size: 22px;
-	font-style: italic;
+    font-size: 22px;
+    font-style: italic;
 }
 
 li {
@@ -26,15 +29,9 @@ li {
     padding-bottom: 10px;
     padding-top: 10px;
     border: 1px solid black;
-    box-shadow: 8px 8px;
+    box-shadow: 4px 4px;
 }
 
 #map {
     height: 1000px;
-	width: 100%;
-}
-
-.selected {
-    font-size: 28px;
-	color: #7092be;
 }
