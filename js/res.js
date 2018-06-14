@@ -69,7 +69,7 @@ var places = [
     }
 ];
 
-//Google Map custom styles. Style from https://snazzymaps.com/style/84/pastel-tones
+//Google Map custom styles
 var styles = [
     {
         "featureType": "landscape",
