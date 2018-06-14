@@ -15,25 +15,28 @@
     <div class="container-fluid">
         <div class="row">
             <header class="col-lg-12">
-                <h1 class="col-sm-7">
+                <h1 class="col-xs-1">
                     <button type="button" class="btn btn-info" id="locListCollapse">
                 <span class="glyphicon glyphicon-menu-hamburger "></span> 
-            </button> The 626 Dim Sum Map
+                    </button></h1>
+                <h1 id="title" class="col-xs-11"> The 626 Dim Sum Map
                 </h1>
             </header>
         </div>
         <section class="row">
             <nav class="col-sm-3" id="locList">
                 <div>
-                    <form>
-                        <fieldset>
-                            <legend>Filter Options</legend>
-                            <input class="form-control" type="text" aria-label="Search" data-bind="textInput: searchFilter" placeholder="Find Location">
-                        </fieldset>
+                    <hr>
+                    <form data-bind="submit: filterLocList">
+                        <label for="search">Filter Locations</label>
+                        <input id="search" class="form-control" type="text" aria-label="Search" data-bind="value: searchFilter">
+                        <br>
+                        <button class="btn btn-outline-secondary" type="submit">Filter</button>
                     </form>
+                    <hr>
                 </div>
 
-                <ul class="nav nav-stacked" data-bind="foreach: filteredLocList">
+                <ul class="nav nav-stacked" data-bind="foreach: locList">
                     <li class="nav-item" data-bind="text: $data.name, attr: {id: $data.id}, click: $parent.toggleLocItem"></li>
                 </ul>
             </nav>

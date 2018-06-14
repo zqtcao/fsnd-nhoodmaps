@@ -5,20 +5,10 @@ body {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 38px;
     font-weight: bold;
     font-variant: small-caps;
     color: #0098e1;
-}
-
-h2 {
-    font-size: 28px;
-    color: #7092be;
-}
-
-h3 {
-    font-size: 22px;
-    font-style: italic;
 }
 
 h4 {
@@ -35,18 +25,21 @@ h5 {
 li {
     font-size: 18px;
     font-variant: small-caps;
-    color: #0098e1;
     margin-top: 10px;
     margin-bottom: 10px;
     padding-left: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
+    box-shadow: 4px 4px #bbc1cc;
+}
+
+.highlight {
+    font-weight: bold;
     box-shadow: 4px 4px #0098e1;
 }
 
-.selected {
-    font-weight: bold;
-    box-shadow: 4px 4px #1f2576;
+#title {
+    text-align: right;
 }
 
 #map {

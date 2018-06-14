@@ -1,17 +1,20 @@
 //Class that represents a particular location
-function MapLocation(name, id, isFavorite = false) {
+function MapLocation(name, id) {
     var self = this;
     self.name = name;
     self.id = id;
-    self.isFavorite = isFavorite;
-    self.isSelected = false;
 
-    self.toggleFavorite = function () {
-        self.isFavorite = !self.isFavorite;
+    self.toggleActive = function () {
+        $('#' + this.id).parent().find('li').removeClass('highlight');
+        $('#' + this.id).addClass('highlight');
     }
 
-    self.toggleSelected = function () {
-        self.isSelected = !self.isSelected;
+    self.hideLocElement = function () {
+        $('#' + self.id).hide();
+    }
+
+    self.showLocElement = function () {
+        $('#' + self.id).show();
     }
 }
 
@@ -21,7 +24,7 @@ function MapsViewModel() {
     self.markers = [];
     self.largeInfowindow = new google.maps.InfoWindow();
     self.searchFilter = ko.observable('');
-    //self.filteredLocList = ko.observableArray();
+    self.locList = ko.observableArray();
 
     self.populateInfoWindow = function (marker, infowindow) {
 
@@ -43,7 +46,7 @@ function MapsViewModel() {
                 var locAddressLine1 = venueResponse.location.formattedAddress[0];
                 var locAddressLine2 = venueResponse.location.formattedAddress[1];
 
-                infowindow.setContent('<div><h4>' + locName + '</h4>' +
+                infowindow.setContent('<div><h4>' + locName + '</span></h4>' +
                     '<h5>' + locAddressLine1 + '</h5><h5>' + locAddressLine2 + '</h5>' +
                     '<br><img src="img/Powered-by-Foursquare-full-color-300.png"></div>');
             }).fail(function () {
@@ -58,8 +61,8 @@ function MapsViewModel() {
         }
     }
 
-
     self.initMap = function () {
+
         map = new google.maps.Map(document.getElementById('map'), {
             center: {
                 lat: 34.0618214,
@@ -87,6 +90,7 @@ function MapsViewModel() {
                 animation: google.maps.Animation.DROP,
                 id: i
             });
+            self.locList.push(new MapLocation(title, i));
             // Push the marker to our markers array
             self.markers.push(marker);
             // Create an onclick event to open an infowindow at each marker.
@@ -103,6 +107,8 @@ function MapsViewModel() {
 
     self.toggleLocItem = function () {
         var thisMarker = self.markers[this.id];
+        self.locList()[this.id].toggleActive();
+
         if (thisMarker.getAnimation() !== null) {
             thisMarker.setAnimation(null);
         } else {
@@ -115,37 +121,37 @@ function MapsViewModel() {
         }
     }
 
-    self.filteredLocList = ko.computed(function () {
-        var filteredList = [];
+    //filters the locations based on the search constraint
+    self.filterLocList = function () {
 
-        for (var i = 0; i < self.markers.length; i++) {
-            if (self.markers[i].title.toLowerCase().includes(this.searchFilter().toLowerCase())) {
-                filteredList.push(new MapLocation(self.markers[i].title, i));
+        var searchStr = self.searchFilter().toLowerCase();
+
+        for (var i = 0; i < self.locList().length; i++) {
+            var locStr = self.locList()[i].name.toLowerCase();
+            if (!locStr.includes(searchStr)) {
+                self.locList()[i].hideLocElement();
+                self.markers[i].setVisible(false);
+            } else {
+                self.locList()[i].showLocElement();
                 self.markers[i].setVisible(true);
             }
-            //if there is no match with the search, hide this element
-            else {
-                self.markers[i].setVisible(false);
-            }
         }
-        return filteredList;
-    }, this);
-
+    }
 }
 
 function mapAPIError() {
-    $("#map").html(gmapsErr);
+    $('#map').html(gmapsErr);
 }
 
 function runApp() {
     ko.applyBindings(new MapsViewModel());
 }
 
-//Handles toggling the hide/unhide of the location list
 $(document).ready(function () {
+    //Handles toggling the hide/unhide of the location list
     $('#locListCollapse').on('click', function () {
         console.log("togglin sidebar!");
         $('#locList').toggleClass('hide');
-        $('#mapArea').toggleClass('col-xs-12 col-xs-9');
+        $('#mapArea').toggleClass('col-sm-12 col-sm-9');
     });
 });
