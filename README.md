@@ -13,5 +13,5 @@ If you want to run a local instance of this project, simply download the zip fil
 ## Acknowledgements
 
 * Udacity's Getting Started With the API course for providing some of the base setup code.
-* A custom map style used is [Pastel Tones from SnazzyMaps](https://snazzymaps.com/style/84/pastel-tones)
+* The custom Google Map style used here is [Pastel Tones from SnazzyMaps](https://snazzymaps.com/style/84/pastel-tones)
 * [This stackoverflow post on toggling Bootstrap columns](https://stackoverflow.com/questions/42652969/change-column-class-of-div-in-bootstrap?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa)
