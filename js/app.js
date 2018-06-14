@@ -25,10 +25,23 @@ function MapsViewModel() {
 
     self.markers = [];
     self.largeInfowindow = new google.maps.InfoWindow();
+
+    self.selectedItem = ko.observable("");
     self.searchFilter = ko.observable('');
     self.locList = ko.observableArray();
 
     self.populateInfoWindow = function (marker, infowindow) {
+
+        // upon population of the infowindow, we add a bouncing animation
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            //stop bounce animation after a cycle
+            setTimeout(function () {
+                marker.setAnimation(null);
+            }, 700);
+        }
 
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
@@ -110,35 +123,27 @@ function MapsViewModel() {
     self.toggleLocItem = function () {
         var thisMarker = self.markers[this.id];
         self.locList()[this.id].toggleActive();
-
-        if (thisMarker.getAnimation() !== null) {
-            thisMarker.setAnimation(null);
-        } else {
-            thisMarker.setAnimation(google.maps.Animation.BOUNCE);
-            //stop bounce animation after a cycle
-            setTimeout(function () {
-                thisMarker.setAnimation(null);
-            }, 700);
-            self.populateInfoWindow(thisMarker, self.largeInfowindow);
-        }
+        self.populateInfoWindow(thisMarker, self.largeInfowindow);
     }
 
     //filters the locations based on the search constraint
-    self.filterLocList = function () {
+    self.filteredLocList = ko.computed(function () {
 
+        var filteredList = [];
         var searchStr = self.searchFilter().toLowerCase();
+        //if the search string is empty, we return the unmodified list
 
         for (var i = 0; i < self.locList().length; i++) {
             var locStr = self.locList()[i].name.toLowerCase();
             if (!locStr.includes(searchStr)) {
-                self.locList()[i].hideLocElement();
                 self.markers[i].setVisible(false);
             } else {
-                self.locList()[i].showLocElement();
+                filteredList.push(self.locList()[i]);
                 self.markers[i].setVisible(true);
             }
         }
-    }
+        return filteredList;
+    });
 }
 
 function mapAPIError() {

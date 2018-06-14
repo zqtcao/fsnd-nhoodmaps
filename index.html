@@ -26,13 +26,11 @@
             <nav class="col-sm-3" id="locList">
                 <div>
                     <hr>
-                    <form data-bind="submit: filterLocList">
-                        <label for="search">Filter Locations</label>
-                        <input id="search" class="form-control" type="text" aria-label="Search" data-bind="value: searchFilter">
-                    </form>
+                    <label for="search">Filter Locations</label>
+                    <input id="search" class="form-control" type="text" aria-label="Search" data-bind="textInput: searchFilter">
                     <hr>
                 </div>
-                <ul class="nav nav-stacked" data-bind="foreach: locList">
+                <ul class="nav nav-stacked" data-bind="foreach: filteredLocList">
                     <li class="nav-item" data-bind="text: $data.name, attr: {id: $data.id}, click: $parent.toggleLocItem"></li>
                 </ul>
             </nav>
