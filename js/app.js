@@ -5,8 +5,10 @@ function MapLocation(name, id) {
     self.id = id;
 
     self.toggleActive = function () {
+        $('.glyphicon-map-marker').remove();
         $('#' + this.id).parent().find('li').removeClass('highlight');
         $('#' + this.id).addClass('highlight');
+        $('#' + this.id).append('<span id="icon' + this.id + '" class="glyphicon glyphicon-map-marker pull-right"></span>')
     }
 
     self.hideLocElement = function () {
