@@ -31,7 +31,7 @@
                     <hr>
                 </div>
                 <ul class="nav nav-stacked" data-bind="foreach: filteredLocList">
-                    <li class="nav-item" data-bind="text: $data.name, attr: {id: $data.id}, click: $parent.toggleLocItem"></li>
+                    <li class="nav-item" data-bind="text: $data.name, attr: {id: $data.id}, click: $parent.selectItem, css: {'highlight' : $data.id == $parent.selectedItem()}"></li>
                 </ul>
             </nav>
             <div class="col-sm-9" id="mapArea">

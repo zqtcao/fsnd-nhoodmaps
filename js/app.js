@@ -3,21 +3,6 @@ function MapLocation(name, id) {
     var self = this;
     self.name = name;
     self.id = id;
-
-    self.toggleActive = function () {
-        $('.glyphicon-map-marker').remove();
-        $('#' + this.id).parent().find('li').removeClass('highlight');
-        $('#' + this.id).addClass('highlight');
-        $('#' + this.id).append('<span id="icon' + this.id + '" class="glyphicon glyphicon-map-marker pull-right"></span>')
-    }
-
-    self.hideLocElement = function () {
-        $('#' + self.id).hide();
-    }
-
-    self.showLocElement = function () {
-        $('#' + self.id).show();
-    }
 }
 
 function MapsViewModel() {
@@ -26,7 +11,7 @@ function MapsViewModel() {
     self.markers = [];
     self.largeInfowindow = new google.maps.InfoWindow();
 
-    self.selectedItem = ko.observable("");
+    self.selectedItem = ko.observable(-1);
     self.searchFilter = ko.observable('');
     self.locList = ko.observableArray();
 
@@ -42,6 +27,8 @@ function MapsViewModel() {
                 marker.setAnimation(null);
             }, 700);
         }
+
+        self.selectedItem(marker.id);
 
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
@@ -120,10 +107,9 @@ function MapsViewModel() {
 
     self.initMap();
 
-    self.toggleLocItem = function () {
-        var thisMarker = self.markers[this.id];
-        self.locList()[this.id].toggleActive();
-        self.populateInfoWindow(thisMarker, self.largeInfowindow);
+    //performs actions when an item from the list is selected
+    self.selectItem = function () {
+        self.populateInfoWindow(self.markers[this.id], self.largeInfowindow);
     }
 
     //filters the locations based on the search constraint
