@@ -28,11 +28,10 @@ function MapsViewModel() {
             }, 700);
         }
 
-        self.selectedItem(marker.id);
-
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker != marker) {
             infowindow.marker = marker;
+            self.selectedItem(marker.id);
 
             var fsPlaceUrl = 'https://api.foursquare.com/v2/venues/search?ll=' +
                 marker.lat + ',' + marker.lng +
@@ -61,7 +60,7 @@ function MapsViewModel() {
                 infowindow.marker = null;
             });
         }
-    }
+    };
 
     self.initMap = function () {
 
@@ -103,14 +102,14 @@ function MapsViewModel() {
         }
         // Extend the boundaries of the map for each marker
         map.fitBounds(bounds);
-    }
+    };
 
     self.initMap();
 
     //performs actions when an item from the list is selected
     self.selectItem = function () {
         self.populateInfoWindow(self.markers[this.id], self.largeInfowindow);
-    }
+    };
 
     //filters the locations based on the search constraint
     self.filteredLocList = ko.computed(function () {
@@ -122,6 +121,10 @@ function MapsViewModel() {
         for (var i = 0; i < self.locList().length; i++) {
             var locStr = self.locList()[i].name.toLowerCase();
             if (!locStr.includes(searchStr)) {
+                //close orphaned InfoWindows when the list is filtered
+                if (self.largeInfowindow.marker = self.markers[i]) {
+                    largeInfowindow.marker = null;
+                }
                 self.markers[i].setVisible(false);
             } else {
                 filteredList.push(self.locList()[i]);
