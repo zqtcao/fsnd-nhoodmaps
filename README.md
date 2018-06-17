@@ -7,7 +7,7 @@ The map contains a collection of Dim Sum places located in the heart of the SGV 
 
 ## Installation and Running
 
-A live version of this project can be found [here](https://zqtcao.github.io/uda-fsnd-nhoodmaps/).
+A live version of this project can be found [here](https://zqtcao.github.io/fsnd-nhoodmaps/).
 If you want to run a local instance of this project, simply download the zip file and open `index.html`.
 
 ## Acknowledgements
