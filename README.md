@@ -1,4 +1,4 @@
-# uda-neighborhood-maps
+# fsnd-nhoodmaps
 This is a Neighborhood Map built using JQuery, KnockoutJS, which then interface with the Google Maps and Foursquare API.
 
 Styling is done partly with the Bootstrap CSS framework.
