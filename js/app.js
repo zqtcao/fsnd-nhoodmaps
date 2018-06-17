@@ -3,6 +3,7 @@ function MapLocation(name, id) {
     var self = this;
     self.name = name;
     self.id = id;
+    self.wasLastOpenedLoc = false;
 }
 
 function MapsViewModel() {
@@ -16,18 +17,6 @@ function MapsViewModel() {
     self.locList = ko.observableArray();
 
     self.populateInfoWindow = function (marker, infowindow) {
-
-        // upon population of the infowindow, we add a bouncing animation
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            //stop bounce animation after a cycle
-            setTimeout(function () {
-                marker.setAnimation(null);
-            }, 700);
-        }
-
         self.selectedItem(marker.id);
 
         // Check to make sure the infowindow is not already opened on this marker.
@@ -54,12 +43,23 @@ function MapsViewModel() {
             }).fail(function () {
                 infowindow.setContent('<div><h4>' + fsErr + '</h4></div>');
             });
-
             infowindow.open(map, marker);
             // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function () {
                 infowindow.marker = null;
             });
+        }
+    };
+
+    self.bounceMarkers = function (marker) {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            //stop bounce animation after 2 cycles
+            setTimeout(function () {
+                marker.setAnimation(null);
+            }, 700);
         }
     }
 
@@ -97,20 +97,22 @@ function MapsViewModel() {
             self.markers.push(marker);
             // Create an onclick event to open an infowindow at each marker.
             marker.addListener('click', function () {
+                self.bounceMarkers(this);
                 self.populateInfoWindow(this, self.largeInfowindow);
             });
             bounds.extend(self.markers[i].position);
         }
         // Extend the boundaries of the map for each marker
         map.fitBounds(bounds);
-    }
+    };
 
     self.initMap();
 
     //performs actions when an item from the list is selected
     self.selectItem = function () {
+        self.bounceMarkers(self.markers[this.id]);
         self.populateInfoWindow(self.markers[this.id], self.largeInfowindow);
-    }
+    };
 
     //filters the locations based on the search constraint
     self.filteredLocList = ko.computed(function () {
@@ -122,8 +124,16 @@ function MapsViewModel() {
         for (var i = 0; i < self.locList().length; i++) {
             var locStr = self.locList()[i].name.toLowerCase();
             if (!locStr.includes(searchStr)) {
+                if (self.largeInfowindow.marker == self.markers[i]) {
+                    self.largeInfowindow.marker = null;
+                    self.largeInfowindow.close();
+                }
                 self.markers[i].setVisible(false);
             } else {
+                console.log(self.selectedItem());
+                if (self.selectedItem() == i) {
+                    self.populateInfoWindow(self.markers[i], self.largeInfowindow);
+                }
                 filteredList.push(self.locList()[i]);
                 self.markers[i].setVisible(true);
             }
